@@ -8,6 +8,6 @@
 </head>
 <body>
 
-<h1>Comitado</h1>
+<h1>Comitei</h1>
 </body>
 </html>
