@@ -8,6 +8,6 @@
 </head>
 <body>
 
-<h1>Comitei</h1>
+<h1>Funcionalidades do git-hub</h1>
 </body>
-</html>
+</html>     
