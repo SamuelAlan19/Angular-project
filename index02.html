@@ -10,7 +10,7 @@
 
     <style>
         .jumbotron{
-            width: 400px;
+            width: 700px;
             margin-top: 25px;
             margin-left: auto;
             margin-right: auto;
@@ -24,6 +24,10 @@
         .form-control{
             margin-bottom: 10px;
         }
+        .selecionado{
+            background-color: yellowgreen;
+            font-weight: bold;
+        }
     </style>
 
 
@@ -31,16 +35,32 @@
         angular.module("ListaTelefonica", []);
         angular.module("ListaTelefonica").controller("ListaTelefonicaCtrl",function($scope){
             $scope.app="Lista Telefonica";
+            $scope.contacto_selecionado = undefined;
             $scope.contatos = [
                 {nome: "Samuel", Telefone:"91111-2222"},
                 {nome: "Pedro", Telefone:"93333-4444"},
                 {nome: "Rogério", Telefone:"95555-6666"}
             ];
             $scope.adicionarContato = function(){
-                $scope.contatos.push({nome: $scope.nome, Telefone: $scope.Telefone}); 
+                $scope.contatos.push({nome: $scope.nome, Telefone: $scope.Telefone, operadora: $scope.operadora.nome}); 
                 delete $scope.nome;
                 delete $scope.Telefone;
+                delete $scope.operadora;
             };
+            $scope.apagarContatos = function(contacto_selecionado){
+                // var contatosSelecionados = contatos;
+                // contatosSelecionados.filter(function(contatos){
+                //     if (!contato.selecionado) return contato; 
+                // });
+                    console.log(contacto_selecionado);
+            };
+            $scope.operadoras = [
+                {nome: "Oi", codigo:"14"},
+                {nome: "Vivo", codigo:"15"},
+                {nome: "Tim", codigo:"16"},
+                {nome: "Claro", codigo:"17"}
+            ];
+            $scope.classe = "selecionado"; 
         });
     </script>
 </head>
@@ -48,21 +68,60 @@
 
     <div class = "jumbotron">
         <h1> {{app}}</h1>
-        <table class="table table-striped">
+        <table class="table">
             <tr>
+                <th></th>
                 <th>Nome:</th>
                 <th>Telefone:</th>
+                <th>Operadoras:</th>
             </tr>
-            <tr ng-repeat="contato in contatos">
+            <tr ng-class="{selecionado: contacto.selecionado}" ng-repeat="contato in contatos">
+                <td><input type="checkbox" ng-model="$scope.contacto_selecionado"></td>
                 <td>{{contato.nome}}</td>
                 <td>{{contato.Telefone}}</td>
+                <td>{{contato.operadora}}</td>        
             </tr>
         </table>
+        {{$scope.contacto}}
         <hr>
         <input class="form-control" type="text" ng-model="nome" placeholder="Nome">
         <input class="form-control" type="text" ng-model="Telefone" placeholder="Telefone">
-        <button ng-click="adicionarContato()" class="btn btn-primary btn-block">Adicionar Contato</button>
+        <select class="form-control" ng-model="operadora" ng-options=" operadora.nome for operadora in operadoras">
+            <option value="">Selecione uma operadora</option>
+        </select>
+        <button ng-click="adicionarContato()" class="btn btn-primary btn-block" ng-disabled="$scope.nome||$scope.Telefone">Adicionar Contato</button>
+        <td><button ng-click="apagarContatos($scope.contacto_selecionado)" class="btn btn-danger btn-block">Deletar Contato</button></td>
     </div>
+
+    <div ng-app="controller as vm">
+        <input type="text" ng-model="vm.teste.nome">
+        {{vm.teste.nome}}
+    </div>
+    
+    <script>
+        (function() {
+
+'use strict';
+
+angular
+
+    .module('ListaTelefonica')
+
+    .controller('controller', controller);
+
+    controller.$inject = [];
+
+function controller() {
+
+var vm = this;
+    vm.teste = {}; 
+}
+
+});
+    </script>
+
+
+
 
 </body>
 </html>
