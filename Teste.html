@@ -33,13 +33,16 @@
 
     <script>
         angular.module("ListaTelefonica", []);
-        angular.module("ListaTelefonica").controller("ListaTelefonicaCtrl",function($scope){
+        angular.module("ListaTelefonica").controller("ListaTelefonicaCtrl",function($scope, $http){
             $scope.app="Lista Telefonica";
-            $scope.contatos = [
-                {nome: "Samuel", Telefone:"91111-2222", operadora: {nome: "Vivo"}, date: new Date(),},
-                {nome: "Pedro", Telefone:"93333-4344", operadora: {nome: "Claro"}, date: new Date(),},
-                {nome: "Rogério", Telefone:"95555-6666", operadora: {nome: "Tim"}, date: new Date()}
-            ];
+            $scope.contatos = [];
+
+            var carregarContatos = function(){ 
+                $http.get("http://localhost/projeto-angular/contatosBackend.js").then(function(response){
+                console.log(response.data); 
+            });
+        };
+        
             $scope.adicionarContato = function(contato){
                 $scope.contatos.push(angular.copy(contato)); 
                 delete $scope.contato;
@@ -51,19 +54,21 @@
             //console.log(contatos); 
         };
             $scope.operadoras = [
-                {nome: "Oi", codigo:"14",},
-                {nome: "Vivo", codigo:"15"},
-                {nome: "Tim", codigo:"16"},
-                {nome: "Claro", codigo:"17"}
+            {nome: "Oi", codigo: 14, categoria: "Celular", preco: 2},
+            {nome: "Vivo", codigo: 15, categoria: "Celular", preco: 1},
+            {nome: "Tim", codigo: 41, categoria: "Celular", preco: 3},
+            {nome: "GVT", codigo: 25, categoria: "Fixo", preco: 1},
+            {nome: "Embratel", codigo: 21, categoria: "Fixo", preco: 2}
             ];
             $scope.isContatoSelecionado = function (contatos) {
                 return contatos.some(function(contato){
                     return contato.selecionado;
                 });
             };
-
             $scope.classe = "selecionado"; 
-        });
+            carregarContatos(); 
+        
+        });    
     </script>
 </head>
 <body ng-controller="ListaTelefonicaCtrl">
@@ -71,7 +76,7 @@
     <div class = "jumbotron">
         <h1>{{app}}</h1>
         <hr>
-        <input type="text" class="form-control" ng-model="criterioBusca" placeholder="O que está buscando?">
+        <input type="text" class="form-control" ng-model="criterioBusca" placeholder="O que está buscando?"> 
         <table class="table">
             <tr>
                 <th></th>
@@ -92,7 +97,7 @@
         <form name="contatoForm">
         <input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome" ng-required="true">
         <input class="form-control" type="text" ng-model="contato.Telefone" placeholder="Telefone" ng-required="true">
-        <select class="form-control" ng-model="contato.operadora" ng-options=" operadora.nome for operadora in operadoras" ng-required="true">
+        <select class="form-control" ng-model="contato.operadora" ng-options=" operadora.nome + ' ( ' + (operadora.preco | currency) + ' ) ' for operadora in operadoras" ng-required="true">
             <option value="">Selecione uma operadora</option>
         </select>
         <div class="alert alert-danger" ng-show="contatoForm.$invalid">
