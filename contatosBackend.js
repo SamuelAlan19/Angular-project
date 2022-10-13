@@ -17,7 +17,7 @@ var operadoras = [
 	{nome: "Embratel", codigo: 21, categoria: "Fixo", preco: 2}
 ];
 
-app.listen(process.env.PORT || 3412);
+app.listen(process.env.PORT || 3412); 
 
 app.all('*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
