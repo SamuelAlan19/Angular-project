@@ -53,7 +53,7 @@
             };
         
             $scope.adicionarContato = function(contato){
-                contato.data = new Date(); 
+                contato.date = new Date(); 
                 //console.log(contato); 
                 $http.post("http://localhost:3412/contatos", contato).then(function(response){
                     delete $scope.contato;
@@ -61,10 +61,11 @@
                 });
             };
             $scope.apagarContatos = function(contatos){
-                    $scope.contatos = contatos.filter(function(contato){
-                        if (!contato.selecionado) return contato;
-            });
-            //console.log(contatos); 
+                delete $scope.contato; 
+                    // $scope.contatos = contatos.filter(function(contato){
+                    //     if (!contato.selecionado) return contato; 
+                // });
+             
         };
             $scope.isContatoSelecionado = function (contatos) {
                 // return contatos.some(function(contato){

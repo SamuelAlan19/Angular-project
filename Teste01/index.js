@@ -1,24 +1,20 @@
-// var bodyParser = require('body-parser'); 
-// app.use(bodyParser.urlencoded({
-//     extended: true
-// }));
-// app.use(bodyParser.json());
-
-
 const { debug } = require('console');
 const express = require('express'); 
 const { appendFile } = require('fs');
 const app = express(); 
+const bodyParser = require('body-parser');
 
  
 
 var contatos = [
-	{nome: "Bruno", Telefone: "9999-2222", data: new Date().toLocaleDateString, operadora: {nome: "Oi", codigo: 14, categoria: "Celular"}},
-	{nome: "Sandra", Telefone: "9999-3333", data: new Date().toLocaleDateString, operadora: {nome: "Vivo", codigo: 15, categoria: "Celular"}},
-	{nome: "Mariana", Telefone: "9999-9999", data: new Date().toLocaleDateString, operadora: {nome: "Tim", codigo: 41, categoria: "Celular"}}
+	{nome: "Bruno", Telefone: "9999-2222", date: new Date(), operadora: {nome: "Oi", codigo: 14, categoria: "Celular"}},
+	{nome: "Sandra", Telefone: "9999-3333", date: new Date(), operadora: {nome: "Vivo", codigo: 15, categoria: "Celular"}},
+	{nome: "Mariana", Telefone: "9999-9999", date: new Date(), operadora: {nome: "Tim", codigo: 41, categoria: "Celular"}}
 ];
 
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:false}));
 // app.use(express.bodyParser());
 
 var operadoras = [
