@@ -1,4 +1,5 @@
 var express = require('express');
+var favicon = require('serve-favicon');
 var app = express();
 
 app.use(express.static(__dirname + '/public'));
@@ -17,7 +18,7 @@ var operadoras = [
 	{nome: "Embratel", codigo: 21, categoria: "Fixo", preco: 2}
 ];
 
-app.listen(process.env.PORT || 3412); 
+app.listen(process.env.PORT || 3412);
 
 app.all('*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -38,5 +39,3 @@ app.post('/contatos', function(req, res) {
 app.get('/operadoras', function(req, res) {
   res.json(operadoras);
 });
-
-
