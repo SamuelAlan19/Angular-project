@@ -54,23 +54,30 @@
         
             $scope.adicionarContato = function(contato){
                 contato.date = new Date(); 
-                //console.log(contato); 
+                console.log(contato); 
                 $http.post("http://localhost:3412/contatos", contato).then(function(response){
                     delete $scope.contato;
                     carregarContatos(); 
                 });
             };
             $scope.apagarContatos = function(contatos){
-                delete $scope.contato; 
-                    // $scope.contatos = contatos.filter(function(contato){
-                    //     if (!contato.selecionado) return contato; 
-                // });
-             
+                $http.delete("http://localhost:3412/contatos", contatos).then(function(response){
+                    $scope.contatos = response.data = contatos.filter(function(contato){
+                        if (!contato.selecionado) return response.data = contato;
+                                                
+                });
+                console.log(response.data);
+            });
         };
-            $scope.isContatoSelecionado = function (contatos) {
-                // return contatos.some(function(contato){
-                //     return contato.selecionado;
+        
+                //  contatos.filter(function(contato){
+                //     if (!contato.selecionado) return $scope.contato;
                 // });
+            
+            $scope.isContatoSelecionado = function (contatos) {
+                return contatos.some(function(contato){
+                    return contato.selecionado; 
+                });
             };
             $scope.classe = "selecionado"; 
             carregarContatos();
