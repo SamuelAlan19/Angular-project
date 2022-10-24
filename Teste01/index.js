@@ -2,11 +2,11 @@ const { debug } = require('console');
 const express = require('express'); 
 const { appendFile } = require('fs');
 const app = express(); 
-const application = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
- 
+
+
 
 var contatos = [
 	{nome: "Bruno", Telefone: "9999-2222", date: new Date(), operadora: {nome: "Oi", codigo: 14, categoria: "Celular"}},
@@ -31,7 +31,7 @@ var operadoras = [
 app.all('*', function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Access-Control-Allow-Headers', '*');
     next();
   });
 
@@ -44,32 +44,24 @@ app.post('/contatos', function(req, res) {
     res.json(true);
   });
 
+
+app.post('/del_contatos', function(req, res) { 
+    var name = req.query;
+    res.send(`Dados: ${name}`);
+    console.log(name); 
+  });
+
 app.get('/operadoras', function(req, res) {
     res.json(operadoras);
   });
 
 app.delete('/contatos', function (req, res){
-    console.log(req.body); 
+  res.json(req);
+  console.log(req.body); 
     for(i = 0; i < contatos.length; i++){
         console.log(contatos[i].nome + contatos[i].Telefone)
-        res.end();
     };
-    
-    // for(i = 0; i < contatos.length; i++){
-    // Post.destroy({where: {'i': req.params.i}}).then(function(){
-    //     res.send("Deletado com sucesso!")
-    // }).catch(function(erro){
-    //     res.send("Um erro aconteceu!")
-    // });
- 
-    // var contatos; 
-    // req = contatos.Telefone;  
-    // var i = 0;
-
-    // for(contatos[i]; req.body === contatos[i]; i++ )
-    //      contatos[i].delete(); 
-         
-     
+           
 });
 
 app.listen(process.env.PORT || 3412);

@@ -61,13 +61,22 @@
                 });
             };
             $scope.apagarContatos = function(contatos){
-                $http.delete("http://localhost:3412/contatos", contatos).then(function(response){
-                    $scope.contatos = response.data = contatos.filter(function(contato){
-                        if (!contato.selecionado) return response.data = contato;
+                // $http.delete("http://localhost:3412/contatos", contatos).then(function(response){
+                //     $scope.contatos = response.data = contatos.filter(function(contato){
+                //         if (!contato.selecionado) return contato;
                                                 
+                // });
+
+                         
+                        var contato = contatos.filter (function(contato){
+                        if (!contato.selecionado) return contato;
                 });
-                console.log(response.data);
-            });
+
+                // console.log(contatos);
+
+                $http.post("http://localhost:3412/del_contatos", contato).then(function(response){
+                    console.log(response.data);
+                });
         };
         
                 //  contatos.filter(function(contato){
