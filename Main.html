@@ -5,95 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista Telefonica</title>
+    <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="js/angular.min.js"></script>
+    <script src="js/controllers/ListaTelefonicaCtrl.js"></script>
+    <script src="js/controllers/services/contatosAPIService.js"></script>
+    <script src="js/controllers/services/operadorasAPIService.js"></script>
+    <script src="js/value/configValue.js"></script>
+    <script src="js/controllers/services/serialGeneratorService.js"></script>
+    <script src="js/filters/nameFilter.js"></script>
+    <script src="js/filters/ellipsisFilter.js"></script>
 
-    <style>
-        .jumbotron{
-            width: 700px;
-            margin-top: 25px;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center;
-            height: 550px;
-            block-size: auto;
-        }
-        .table{
-            margin-top: 25px;
-        }
-        .form-control{
-            margin-bottom: 10px;
-        }
-        .selecionado{
-            background-color: yellowgreen;
-            font-weight: bold;
-        }
-    </style>
-
-
-    <script>
-        angular.module("ListaTelefonica", []);
-        angular.module("ListaTelefonica").controller("ListaTelefonicaCtrl",function($scope, $http){
-            $scope.app="Lista Telefonica";
-            $scope.contatos = [];
-            $scope.operadoras = []; 
-
-            var carregarContatos = function(){ 
-                $http.get("http://localhost:3412/contatos").then(function(response){
-                $scope.contatos = response.data; 
-                // console.log(response.data);
-            });
-        };
-
-            var carregarOperadoras = function(){
-                $http.get("http://localhost:3412/operadoras").then(function(response){
-                    $scope.operadoras = response.data;
-                     console.log(response.data);
-                });
-            };
-        
-            $scope.adicionarContato = function(contato){
-                contato.date = new Date(); 
-                console.log(contato); 
-                $http.post("http://localhost:3412/contatos", contato).then(function(response){
-                    delete $scope.contato;
-                    carregarContatos(); 
-                });
-            };
-            $scope.apagarContatos = function(contatos){
-                // $http.delete("http://localhost:3412/contatos", contatos).then(function(response){
-                //     $scope.contatos = response.data = contatos.filter(function(contato){
-                //         if (!contato.selecionado) return contato;
-                                                
-                // });
-
-                         
-                        var contato = contatos.filter (function(contato){
-                        if (!contato.selecionado) return contato;
-                });
-
-                // console.log(contatos);
-
-                $http.post("http://localhost:3412/del_contatos", contato).then(function(response){
-                    console.log(response.data);
-                });
-        };
-        
-                //  contatos.filter(function(contato){
-                //     if (!contato.selecionado) return $scope.contato;
-                // });
-            
-            $scope.isContatoSelecionado = function (contatos) {
-                return contatos.some(function(contato){
-                    return contato.selecionado; 
-                });
-            };
-            $scope.classe = "selecionado"; 
-            carregarContatos();
-            carregarOperadoras(); 
-        
-        });    
-    </script>
 </head>
 <body ng-controller="ListaTelefonicaCtrl">
 
@@ -104,6 +26,7 @@
         <table class="table">
             <tr> 
                 <th></th>
+                <th>Serial</th>
                 <th>Nome:</th>
                 <th>Telefone:</th>
                 <th>Operadoras:</th>
@@ -111,7 +34,8 @@
             </tr>
             <tr ng-class="{selecionado: contato.selecionado}" ng-repeat="contato in contatos | filter: criterioBusca">
                 <td><input type="checkbox" ng-model="contato.selecionado"></td>
-                <td>{{contato.nome}}</td>
+                <td>{{contato.serial}}</td>
+                <td>{{contato.nome | name | ellipsis:10}}</td>
                 <td>{{contato.Telefone}}</td>
                 <td>{{contato.operadora.nome}}</td>
                 <td>{{contato.date | date: 'dd/MM/yyyy HH:mm'}}</td>        
