@@ -4,15 +4,19 @@ angular.module("ListaTelefonica").controller("ListaTelefonicaCtrl",function($sco
     $scope.contatos = [];
     $scope.operadoras = []; 
 
-    var carregarContatos = function(){ 
-        contatosAPI.getContatos().then(function(response){
+    var carregarContatos = function () {
+        //$http.get("http://localhost/Angular/contatos.php").then(function (response) {
+        contatosAPI.getContatos().then(function (response) {
             response.data.forEach(function(item){
                 item.serial = serialGenerator.generate();
-            });
-        $scope.contatos = response.data; 
-        // console.log(response.data);
-    });
-};
+            })
+            $scope.contatos = response.data;
+            // console.log(response.data);
+        }).catch(function (response) {
+            $scope.error = "Não foi possivel carregar os dados!";
+            $scope.msg = "Error 404";
+        });
+    }
 
     var carregarOperadoras = function(){
         operadorasAPI.getOperadoras().then(function(response){

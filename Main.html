@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista Telefonica</title>
     <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/ui.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="js/angular.min.js"></script>
     <script src="js/controllers/ListaTelefonicaCtrl.js"></script>
@@ -15,12 +16,15 @@
     <script src="js/controllers/services/serialGeneratorService.js"></script>
     <script src="js/filters/nameFilter.js"></script>
     <script src="js/filters/ellipsisFilter.js"></script>
+    <script src="js/directives/uiAlertDirective.js"></script>
+
 
 </head>
 <body ng-controller="ListaTelefonicaCtrl">
 
     <div class = "jumbotron">
-        <h1>{{app}}</h1>
+        <h1>{{app}}</h1>  
+        <ui-alert title="msg" message="error"></ui-alert>
         <hr>
         <input type="text" class="form-control" ng-model="criterioBusca" placeholder="O que está buscando?"> 
         <table class="table">
