@@ -53,25 +53,7 @@ app.post('/del_contatos', function (req, res) {
     // delete contato
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  var name = req.serial;
+  var name = req.body;
   res.send(`Dados: ${name}`);
   console.log(name); 
 });
