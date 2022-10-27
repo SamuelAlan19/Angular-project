@@ -17,7 +17,8 @@
     <script src="js/filters/nameFilter.js"></script>
     <script src="js/filters/ellipsisFilter.js"></script>
     <script src="js/directives/uiAlertDirective.js"></script>
-    <script src="js/directives/uiTelefoneDirective.js"></script>
+    <script src="js/directives/uiTelefoneDirective.js  "></script>
+    <script src="js/directives/uiAccordionDirective.js"></script>
 
 
 </head>
@@ -26,6 +27,25 @@
     <div class = "jumbotron">
         <h1>{{app}}</h1>  
         <ui-alert title="msg" message="error"></ui-alert>
+
+        <ui-accordions>
+        <ui-accordion title="Texto 01">  
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore <br>
+            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo <br>
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dikire eu fugiat nulla paritur. <br>
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia desenrunt mollit enim id est laborum. 
+        </ui-accordion>
+
+        <ui-accordion title="Texto 02">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore <br>
+            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo <br>
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dikire eu fugiat nulla paritur. <br>
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia desenrunt mollit enim id est laborum.    
+        </ui-accordion>
+        </ui-accordions>
+
+
+
         <hr>
         <input type="text" class="form-control" ng-model="criterioBusca" placeholder="O que está buscando?"> 
         <table class="table">
