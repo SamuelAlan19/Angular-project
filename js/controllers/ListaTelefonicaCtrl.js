@@ -35,18 +35,22 @@ angular.module("ListaTelefonica").controller("ListaTelefonicaCtrl", function ($s
         });
     };
     $scope.apagarContatos = function (contatos) {
+        
+
         var contato = contatos.filter(function (contato) {
             if (!contato.selecionado) return contato;
         });
-        // console.log(contatos);
+        
         $http.post("http://localhost:3412/del_contatos", contato).then(function (response) {
-            $scope.contato = response.data;
-            console.log(response.data);
+        $scope.contatos = response.data; 
         });
+       
     };
-    $scope.isContatoSelecionado = function (contatos) {
-        return contatos.some(function (contato) {
+    $scope.isContatoSelecionado = function (contatos) 
+    {
+         return [...contatos].some(function (contato) {
             return contato.selecionado;
+             
         });
     };
     $scope.classe = "selecionado";

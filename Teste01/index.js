@@ -47,28 +47,23 @@ app.post('/contatos', function (req, res) {
 
 app.post('/del_contatos', function (req, res) {
 
-    // var name = contato.serial; 
-    // console.log(name);
-    // if(req.body == name)
-    // delete contato
+console.log(req.body);
+res.send(); 
+
+// for(i = 0; i<contatos.length; i++){
+//   if(contatos[i] == req.params.id){
+//     delete contato[i];
+//   }
+// }
 
 
-  var name = req.body;
-  res.send(`Dados: ${name}`);
-  console.log(name); 
+  // var name = req.body;
+  // res.send(`Dados: ${name}`);
+  // console.log(name); 
 });
 
 app.get('/operadoras', function (req, res) {
   res.json(operadoras);
-});
-
-app.delete('/contatos', function (req, res) {
-  res.json(req);
-  console.log(req.body);
-  for (i = 0; i < contatos.length; i++) {
-    console.log(contatos[i].nome + contatos[i].Telefone)
-  };
-
 });
 
 app.listen(process.env.PORT || 3412);
