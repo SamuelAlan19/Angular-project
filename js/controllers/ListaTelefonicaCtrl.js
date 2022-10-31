@@ -50,7 +50,6 @@ angular.module("ListaTelefonica").controller("ListaTelefonicaCtrl", function ($s
     {
          return [...contatos].some(function (contato) {
             return contato.selecionado;
-             
         });
     };
     $scope.classe = "selecionado";

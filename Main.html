@@ -76,7 +76,7 @@
         </div>
         </form>
         <button ng-click="adicionarContato(contato)" class="btn btn-primary btn-block" ng-disabled="contatoForm.$invalid">Adicionar Contato</button>
-        <button ng-click="apagarContatos(contatos)" class="btn btn-danger btn-block" ng-disabled="!isContatoSelecionado(contatos)">Deletar Contato</button>
+        <button ng-click="apagarContatos(contatos)" class="btn btn-danger btn-block" ng-disabled="!isContatoSelecionado(contatos)" ng-if="isContatoSelecionado(contatos)">Deletar Contato</button>
     </div>
 </body>
 </html>
